@@ -480,6 +480,7 @@ GameObject:
   - component: {fileID: 417082007}
   - component: {fileID: 417082009}
   - component: {fileID: 417082010}
+  - component: {fileID: 417082011}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -572,8 +573,8 @@ MonoBehaviour:
     m_ActionName: PlayerMap/New action
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 417082010}
-        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+      - m_Target: {fileID: 417082011}
+        m_TargetAssemblyTypeName: PlayerStateMachine, Assembly-CSharp
         m_MethodName: GetMoveInput
         m_Mode: 0
         m_Arguments:
@@ -588,8 +589,8 @@ MonoBehaviour:
     m_ActionName: PlayerMap/Move[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 417082010}
-        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+      - m_Target: {fileID: 417082011}
+        m_TargetAssemblyTypeName: PlayerStateMachine, Assembly-CSharp
         m_MethodName: GetJumpInput
         m_Mode: 0
         m_Arguments:
@@ -623,6 +624,24 @@ MonoBehaviour:
   invert_x: 0
   invert_y: 0
   sensitivity: 0.4
+--- !u!114 &417082011
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 417082005}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88981e40fc4e69844bb609334cb5fee1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  move_input: {x: 0, y: 0}
+  grounded: 0
+  jump_button_pressed: 0
+  character_controller: {fileID: 0}
+  player_velocity: {x: 0, y: 0, z: 0}
+  wish_dir: {x: 0, y: 0, z: 0}
   max_speed: 6
   acceleration: 60
   gravity: 15
