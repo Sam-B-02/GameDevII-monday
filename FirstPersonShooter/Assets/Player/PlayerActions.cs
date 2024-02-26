@@ -53,6 +53,24 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Primary Fire"",
+                    ""type"": ""Button"",
+                    ""id"": ""7e1cd000-5160-405a-9796-e9a89d0c5cbb"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Hold(pressPoint=0.1)"",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Secondary Fire"",
+                    ""type"": ""Button"",
+                    ""id"": ""c9ee9698-8c0f-4396-80a1-29bea25e30d3"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -132,6 +150,28 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
                     ""action"": ""Jump"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""89ec1936-757e-4a57-921a-cd6786f60778"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Primary Fire"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""29de1685-708d-4398-9e49-7d182580edaf"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Secondary Fire"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -143,6 +183,8 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
         m_PlayerMap_Look = m_PlayerMap.FindAction("Look", throwIfNotFound: true);
         m_PlayerMap_Move = m_PlayerMap.FindAction("Move", throwIfNotFound: true);
         m_PlayerMap_Jump = m_PlayerMap.FindAction("Jump", throwIfNotFound: true);
+        m_PlayerMap_PrimaryFire = m_PlayerMap.FindAction("Primary Fire", throwIfNotFound: true);
+        m_PlayerMap_SecondaryFire = m_PlayerMap.FindAction("Secondary Fire", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -207,6 +249,8 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_PlayerMap_Look;
     private readonly InputAction m_PlayerMap_Move;
     private readonly InputAction m_PlayerMap_Jump;
+    private readonly InputAction m_PlayerMap_PrimaryFire;
+    private readonly InputAction m_PlayerMap_SecondaryFire;
     public struct PlayerMapActions
     {
         private @PlayerActions m_Wrapper;
@@ -214,6 +258,8 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
         public InputAction @Look => m_Wrapper.m_PlayerMap_Look;
         public InputAction @Move => m_Wrapper.m_PlayerMap_Move;
         public InputAction @Jump => m_Wrapper.m_PlayerMap_Jump;
+        public InputAction @PrimaryFire => m_Wrapper.m_PlayerMap_PrimaryFire;
+        public InputAction @SecondaryFire => m_Wrapper.m_PlayerMap_SecondaryFire;
         public InputActionMap Get() { return m_Wrapper.m_PlayerMap; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -232,6 +278,12 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
             @Jump.started += instance.OnJump;
             @Jump.performed += instance.OnJump;
             @Jump.canceled += instance.OnJump;
+            @PrimaryFire.started += instance.OnPrimaryFire;
+            @PrimaryFire.performed += instance.OnPrimaryFire;
+            @PrimaryFire.canceled += instance.OnPrimaryFire;
+            @SecondaryFire.started += instance.OnSecondaryFire;
+            @SecondaryFire.performed += instance.OnSecondaryFire;
+            @SecondaryFire.canceled += instance.OnSecondaryFire;
         }
 
         private void UnregisterCallbacks(IPlayerMapActions instance)
@@ -245,6 +297,12 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
             @Jump.started -= instance.OnJump;
             @Jump.performed -= instance.OnJump;
             @Jump.canceled -= instance.OnJump;
+            @PrimaryFire.started -= instance.OnPrimaryFire;
+            @PrimaryFire.performed -= instance.OnPrimaryFire;
+            @PrimaryFire.canceled -= instance.OnPrimaryFire;
+            @SecondaryFire.started -= instance.OnSecondaryFire;
+            @SecondaryFire.performed -= instance.OnSecondaryFire;
+            @SecondaryFire.canceled -= instance.OnSecondaryFire;
         }
 
         public void RemoveCallbacks(IPlayerMapActions instance)
@@ -267,5 +325,7 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
         void OnLook(InputAction.CallbackContext context);
         void OnMove(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
+        void OnPrimaryFire(InputAction.CallbackContext context);
+        void OnSecondaryFire(InputAction.CallbackContext context);
     }
 }
